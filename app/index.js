@@ -157,8 +157,8 @@ class PictureViewer extends React.Component {
 	handleClick(e) {
 		e.preventDefault();
 		this.setState({data:{
-			image:e.target.attr('src'),
-			intro:e.target.attr('alt')
+			image:e.target.getAttribute('src'),
+			intro:e.target.getAttribute('alt')
 		}});
 	}
 
@@ -190,8 +190,12 @@ class Details extends React.Component {
 		return (
 			<div className="container details">
 				<div>
-					<span className="colwidth">主题：{this.props.theme}</span><span className="colwidth">类型：{this.props.type}</span>
-					<span className="colwidth">咨询者：{this.props.asker}</span><span className="colwidth">咨询日期：{this.props.date}</span>
+					<table>
+						<tbody>
+							<tr><td>主题：{this.props.theme}</td><td>类型：{this.props.type}</td></tr>
+							<tr><td>咨询者：{this.props.asker}</td><td>咨询日期：{this.props.date}</td></tr>
+						</tbody>
+					</table>
 				</div>
 				<div className="question">{this.props.question}</div>
 			</div>
