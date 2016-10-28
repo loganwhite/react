@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
-import 'jquery'
+import 'jquery-zoom'
 
 var g_btns = [
     {id:1,text:"新咨询",link:"http://www.baidu.com"},
@@ -93,7 +93,17 @@ class Content extends React.Component {
 
 	render() {
 		let item = this.state.data.map(i => (
-			<ContentItem user={i.username} userpage={i.userpage} content={i.content} key={i.id} />
+			<ContentItem user={i.username} 
+			userpage={i.userpage} 
+			content={i.content} 
+			key={i.id} 
+			id={i.id}
+			photos={i.photos}
+			type={i.type}
+			asker={i.asker}
+			date={i.date}
+			question={i.question}
+			reply={i.reply} />
 		));
 
 		return (
@@ -117,8 +127,94 @@ class ContentItem extends React.Component {
 					<div><a href={this.props.userpage} >查看用户</a></div>
 				</div>
 				<div className="content">
-					{this.props.content}
+					<div className="question-detail">
+					<PictureViewer photos={this.props.photos}/>
+					<Details theme={this.props.theme} 
+						type={this.props.type} 
+						asker={this.props.asker} 
+						date={this.props.date}
+						question={this.props.question} />
+					</div>
+					<div>
+						<Reply reply={this.props.reply} id={this.props.id} />
+					</div>
 				</div>
+			</div>
+		);
+	}
+}
+
+
+class PictureViewer extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {data:{
+			image:this.props.photos[0].image,
+			intro:this.props.photos[0].intro
+		}};
+	}
+
+	handleClick(e) {
+		e.preventDefault();
+		this.setState({data:{
+			image:e.target.attr('src'),
+			intro:e.target.attr('alt')
+		}});
+	}
+
+	render() {
+		var images = this.props.photos.map(picture => (
+			<img src={picture.image} alt={picture.intro} key={picture.image} onClick={this.handleClick.bind(this)} />
+		));
+
+		return (
+
+			<div className="container picture-view">
+				<div className="zoom">
+					<img src={this.state.data.image} width='555' height='320' alt={this.state.data.intro}/>
+				</div>
+				<div className="scrollable" id="scrollable">
+					<div className="scrollitems">{images}</div>
+				</div>
+			</div>
+		);
+	}
+}
+
+class Details extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<div className="container details">
+				<div>
+					<span className="colwidth">主题：{this.props.theme}</span><span className="colwidth">类型：{this.props.type}</span>
+					<span className="colwidth">咨询者：{this.props.asker}</span><span className="colwidth">咨询日期：{this.props.date}</span>
+				</div>
+				<div className="question">{this.props.question}</div>
+			</div>
+		);
+	}
+}
+
+class Reply extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		if (!(this.props.reply == '' || this.props.reply == undefined || this.props.reply == null))
+			return (
+				<div className="text-reply">
+					{this.props.reply}
+				</div>
+			);
+		return (
+			<div className="reply-box">
+				<textarea id="editor"></textarea>
+				<button className="btn submit-btn">回复</button>
 			</div>
 		);
 	}
@@ -126,4 +222,4 @@ class ContentItem extends React.Component {
 
 var id = $("#consult-id").val();
 
-ReactDOM.render(<ConsultDetail consultId={id} consultUrl="/comments.json" />, document.getElementById('app'))
+ReactDOM.render(<ConsultDetail consultId={id} consultUrl="/comments.json" />, document.getElementById('app'));

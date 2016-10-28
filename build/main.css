@@ -72,7 +72,7 @@
 	width: 90%;
 }
 
-a.btn, a.btn:link, a.btn:visited, a.btn:hover, a.btn:active {
+a.btn, a.btn:link, a.btn:visited, a.btn:hover, a.btn:active, button.btn {
 	text-decoration:none;
 	padding: 5px 1em;
 	font-size: 15px;
@@ -81,4 +81,68 @@ a.btn, a.btn:link, a.btn:visited, a.btn:hover, a.btn:active {
 	cursor: hand ;
 	margin-right: 5px;
 	color: black;
+}
+
+.colwidth {
+	max-width: 50%;
+}
+
+.question {
+	width:100%;
+}
+
+.text-reply {
+	width:100%;
+}
+
+#editor {
+	width: 90%;
+	min-height: 30px;
+}
+
+.question-detail:after {
+	content:"";
+	display:table;
+	clear: both;
+}
+
+.picture-view {
+	float:left;
+}
+
+.details {
+	float:right;
+}
+
+.submit-btn {
+	height:30px;
+	widows: 6%;
+}
+
+.scrollable {
+  /* required settings */
+  position:relative;
+  overflow:hidden;
+  width: 660px;
+  height:90px;
+}
+ 
+/*
+root element for scrollable items. Must be absolutely positioned
+and it should have a extremely large width to accommodate scrollable
+items.  it's enough that you set width and height for the root element
+and not for this element.
+*/
+.scrollable .scrollitems {
+  /* this cannot be too large */
+  width:20000em;
+  position:absolute;
+}
+ 
+/*
+a single item. must be floated in horizontal scrolling.  typically,
+this element is the one that *you* will style the most.
+*/
+.scrollitems div {
+  float:left;
 }
