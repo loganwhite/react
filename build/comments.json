@@ -1,0 +1,20 @@
+[
+    {
+        "id":1,
+        "username":"logan",
+        "userpage":"www.baidu.com",
+        "content":"this is a text of content"
+    },
+    {
+        "id":2,
+        "username":"logan",
+        "userpage":"www.baidu.com",
+        "content":"this is a text of content"
+    },
+    {
+        "id":3,
+        "username":"logan",
+        "userpage":"www.baidu.com",
+        "content":"this is a text of content"
+    }
+]
