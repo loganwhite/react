@@ -114,7 +114,7 @@ table > tbody > tr > td {
 
 .picture-view {
 	float:left;
-	width: 45%;
+	width: 40%;
 }
 
 .details {
@@ -124,7 +124,9 @@ table > tbody > tr > td {
 
 .submit-btn {
 	height:30px;
-	widows: 6%;
+	margin-left: 10px;
+    position: relative;
+    bottom: 10px;
 }
 
 .scrollable {

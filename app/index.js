@@ -171,7 +171,7 @@ class PictureViewer extends React.Component {
 
 			<div className="container picture-view">
 				<div className="zoom">
-					<img src={this.state.data.image} width='555' height='320' alt={this.state.data.intro}/>
+					<img src={this.state.data.image} width='100%' height='320' alt={this.state.data.intro}/>
 				</div>
 				<div className="scrollable" id="scrollable">
 					<div className="scrollitems">{images}</div>
