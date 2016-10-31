@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import $ from 'jquery'
-import 'jquery-zoom'
+//import $ from 'jquery'
 
 var g_btns = [
     {id:1,text:"新咨询",link:"http://www.baidu.com"},
@@ -162,6 +161,11 @@ class PictureViewer extends React.Component {
 		}});
 	}
 
+	componentDidMount() {
+		$(this.refs.zoom).zoom();
+		//$(this.refs.scrollable).scrollable();
+	}
+
 	render() {
 		var images = this.props.photos.map(picture => (
 			<img src={picture.image} alt={picture.intro} key={picture.image} onClick={this.handleClick.bind(this)} />
@@ -170,10 +174,10 @@ class PictureViewer extends React.Component {
 		return (
 
 			<div className="container picture-view">
-				<div className="zoom">
+				<div className="zoom" ref="zoom">
 					<img src={this.state.data.image} width='100%' height='320' alt={this.state.data.intro}/>
 				</div>
-				<div className="scrollable" id="scrollable">
+				<div className="scrollable" id="scrollable" ref="scrollable">
 					<div className="scrollitems">{images}</div>
 				</div>
 			</div>
