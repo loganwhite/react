@@ -1,6 +1,7 @@
 *{
 	margin: 0;
 	padding: 0;
+	font-family: "Microsoft YaHei";
 }
 
 .header {
@@ -96,7 +97,7 @@ table > tbody > tr > td {
 	width:100%;
 }
 
-#editor {
+.editor {
 	width: 90%;
 	min-height: 10em;
 }
@@ -128,36 +129,9 @@ table > tbody > tr > td {
 	margin-left: 10px;
     position: relative;
     bottom: 10px;
+    float:right;
+    bottom:30px;
 }
-
-.scrollable {
-  /* required settings */
-  position:relative;
-  overflow:hidden;
-  width: 100%;
-  height:90px;
-}
- 
-/*
-root element for scrollable items. Must be absolutely positioned
-and it should have a extremely large width to accommodate scrollable
-items.  it's enough that you set width and height for the root element
-and not for this element.
-*/
-.scrollable .scrollitems {
-  /* this cannot be too large */
-  width:100%;
-  position:absolute;
-}
- 
-/*
-a single item. must be floated in horizontal scrolling.  typically,
-this element is the one that *you* will style the most.
-*/
-.scrollitems div {
-  float:left;
-}
-
 
 .picture-view .prev {
 	width: 10px;
@@ -205,7 +179,7 @@ this element is the one that *you* will style the most.
 }
 
 .picture-view .scrollable {
-	width: 268px;
+	width: 90%;
 	height: 64px;
 	float: left;
 	position: relative;
@@ -229,7 +203,7 @@ this element is the one that *you* will style the most.
 
 .picture-view .scrollable a.current {
 	padding: 0px;
-	border: 2px solid #ff9900;
+	border: 2px solid ##e4e4e4;
 }
 
 .picture-view .scrollable img {

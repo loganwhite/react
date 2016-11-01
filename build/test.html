@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<style type="text/css">
+		.picture-view .prev {
+			width: 10px;
+			height: 62px;
+			display: block;
+			float: left;
+			margin-right: 5px;
+			outline: none;
+			blr: expression(this.hideFocus = true);
+			border: 1px solid #e4e4e4;
+			background: url(./product.gif) -120px -510px no-repeat;
+		}
+
+		.picture-view .prev:hover {
+			background-color: #f1f1f1;
+		}
+
+		.picture-view .next {
+			width: 10px;
+			height: 62px;
+			display: block;
+			float: right;
+			margin-left: 4px;
+			outline: none;
+			blr: expression(this.hideFocus = true);
+			border: 1px solid #e4e4e4;
+			background: url(./product.gif) -180px -510px no-repeat;
+		}
+
+		.picture-view .next:hover {
+			background-color: #f1f1f1;
+		}
+
+		.picture-view .disabled {
+			cursor: default;
+			background-color: #f1f1f1;
+		}
+
+		.picture-view a[class="prev disabled"] {
+			background: url(./product.gif) -150px -510px no-repeat #f4f4f4;
+		}
+
+		.picture-view a[class="next disabled"] {
+			background: url(./product.gif) -210px -510px no-repeat #f4f4f4;
+		}
+
+		.picture-view .scrollable {
+			width: 90%;
+			height: 64px;
+			float: left;
+			position: relative;
+		    overflow: hidden;
+		}
+
+		.picture-view .scrollable .items {
+			width: 20000em;
+			position: absolute;
+		}
+
+		.picture-view .scrollable a {
+			display: block;
+			float: left;
+			padding: 1px;
+			margin-right: 4px;
+			outline: none;
+			blr: expression(this.hideFocus = true);
+			border: 1px solid #e4e4e4;
+		}
+
+		.picture-view .scrollable a.current {
+			padding: 0px;
+			border: 2px solid ##e4e4e4;
+		}
+
+		.picture-view .scrollable img {
+			width: 60px;
+			height: 60px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div>
+	<a href="javascript:;" class="prev"></a>
+	<div class="scrollable1">
+		<div class="items">
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+		</div>
+	</div>
+	<a href="javascript:;" class="next"></a>
+	</div>
+
+	<div>
+	<a href="javascript:;" class="prev"></a>
+	<div class="scrollable2">
+		<div class="items">
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+			<img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/>
+		</div>
+	</div>
+	<a href="javascript:;" class="next"></a>
+	</div>
+
+	<script src="/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/jquery.tools.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+    	$(document).ready(function() {
+    		$(".scrollable1").scrollable();
+    		$(".scrollable2").scrollable();
+    	});
+    </script>
+</body>
+</html>

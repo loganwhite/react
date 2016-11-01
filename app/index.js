@@ -163,17 +163,17 @@ class PictureViewer extends React.Component {
 
 	componentDidMount() {
 		$(this.refs.zoom).zoom();
-		let $scrollable = $(this.refs.scrollable);
-		$scrollable.scrollable();
-		$scrollable.hover(function() {
-				var $this = $(this);
-				if ($this.hasClass("current")) {
-					return false;
-				} else {
-					$thumbnail.removeClass("current");
-					$this.addClass("current").click();
-				}
-			});		
+		// //let $scrollable = $(this.refs.scrollable);
+		// //$scrollable.scrollable();
+		// //$scrollable.hover(function() {
+		// 		var $this = $(this);
+		// 		if ($this.hasClass("current")) {
+		// 			return false;
+		// 		} else {
+		// 			$scrollable.removeClass("current");
+		// 			$this.addClass("current").click();
+		// 		}
+		// 	});		
 	}
 
 	componentDidUpdate() {
@@ -195,8 +195,8 @@ class PictureViewer extends React.Component {
 					<img src={this.state.data.image} width='100%' height='320' alt={this.state.data.intro}/>
 				</div>
 				<a href="javascript:;" className="prev"></a>
-				<div className="scrollable" id="scrollable" ref="scrollable">
-					<div className="scrollitems">{images}</div>
+				<div className="scrollable" ref="scrollable">
+					<div className="items">{images}</div>
 				</div>
 				<a href="javascript:;" className="next"></a>
 			</div>
@@ -231,6 +231,12 @@ class Reply extends React.Component {
 		super(props);
 	}
 
+	componentDidMount() {
+		var editor = KindEditor.create(this.refs.editor, {
+				allowFileManager : true
+			});
+	}
+
 	render() {
 		if (!(this.props.reply == '' || this.props.reply == undefined || this.props.reply == null))
 			return (
@@ -240,7 +246,7 @@ class Reply extends React.Component {
 			);
 		return (
 			<div className="reply-box">
-				<textarea id="editor"></textarea>
+				<textarea ref="editor" className="editor"></textarea>
 				<button className="btn submit-btn">回复</button>
 			</div>
 		);

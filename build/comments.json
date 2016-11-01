@@ -16,6 +16,30 @@
             {
                 "image":"https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
                 "intro":"foto"
+            },
+            {
+                "image":"http://mat1.gtimg.com/www/images/qq2012/qqlogo_2x.png",
+                "intro":"foto"
+            },
+            {
+                "image":"http://mat1.gtimg.com/www/images/qq2012/qqlogo_1x.png",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/ninja/2/2016/11/ninja147798710328515.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/news/pics/hv1/26/119/2149/139769096.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/ninja/2/2016/11/ninja147795896071162.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/18/1801/180182/18018227_small.png",
+                "intro":"foto"
             }
         ],
         "type":"type1",
