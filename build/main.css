@@ -157,3 +157,83 @@ this element is the one that *you* will style the most.
 .scrollitems div {
   float:left;
 }
+
+
+.picture-view .prev {
+	width: 10px;
+	height: 62px;
+	display: block;
+	float: left;
+	margin-right: 5px;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: 1px solid #e4e4e4;
+	background: url(/product.gif) -120px -510px no-repeat;
+}
+
+.picture-view .prev:hover {
+	background-color: #f1f1f1;
+}
+
+.picture-view .next {
+	width: 10px;
+	height: 62px;
+	display: block;
+	float: right;
+	margin-left: 4px;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: 1px solid #e4e4e4;
+	background: url(/product.gif) -180px -510px no-repeat;
+}
+
+.picture-view .next:hover {
+	background-color: #f1f1f1;
+}
+
+.picture-view .disabled {
+	cursor: default;
+	background-color: #f1f1f1;
+}
+
+.picture-view a[class="prev disabled"] {
+	background: url(product.gif) -150px -510px no-repeat #f4f4f4;
+}
+
+.picture-view a[class="next disabled"] {
+	background: url(product.gif) -210px -510px no-repeat #f4f4f4;
+}
+
+.picture-view .scrollable {
+	width: 268px;
+	height: 64px;
+	float: left;
+	position: relative;
+    overflow: hidden;
+}
+
+.picture-view .scrollable .items {
+	width: 20000em;
+	position: absolute;
+}
+
+.picture-view .scrollable a {
+	display: block;
+	float: left;
+	padding: 1px;
+	margin-right: 4px;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: 1px solid #e4e4e4;
+}
+
+.picture-view .scrollable a.current {
+	padding: 0px;
+	border: 2px solid #ff9900;
+}
+
+.picture-view .scrollable img {
+	width: 60px;
+	height: 60px;
+	display: block;
+}

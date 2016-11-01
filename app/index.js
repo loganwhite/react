@@ -163,12 +163,29 @@ class PictureViewer extends React.Component {
 
 	componentDidMount() {
 		$(this.refs.zoom).zoom();
-		//$(this.refs.scrollable).scrollable();
+		let $scrollable = $(this.refs.scrollable);
+		$scrollable.scrollable();
+		$scrollable.hover(function() {
+				var $this = $(this);
+				if ($this.hasClass("current")) {
+					return false;
+				} else {
+					$thumbnail.removeClass("current");
+					$this.addClass("current").click();
+				}
+			});		
+	}
+
+	componentDidUpdate() {
+		$(this.refs.zoom).trigger('zoom.destroy');
+		$(this.refs.zoom).zoom();
 	}
 
 	render() {
 		var images = this.props.photos.map(picture => (
-			<img src={picture.image} alt={picture.intro} key={picture.image} onClick={this.handleClick.bind(this)} />
+			<a className="current" href="javascript:;" key={picture.image} >
+				<img src={picture.image} alt={picture.intro} key={picture.image} onClick={this.handleClick.bind(this)} />
+			</a>
 		));
 
 		return (
@@ -177,9 +194,11 @@ class PictureViewer extends React.Component {
 				<div className="zoom" ref="zoom">
 					<img src={this.state.data.image} width='100%' height='320' alt={this.state.data.intro}/>
 				</div>
+				<a href="javascript:;" className="prev"></a>
 				<div className="scrollable" id="scrollable" ref="scrollable">
 					<div className="scrollitems">{images}</div>
 				</div>
+				<a href="javascript:;" className="next"></a>
 			</div>
 		);
 	}
