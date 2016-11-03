@@ -42,6 +42,7 @@
                 "intro":"foto"
             }
         ],
+        "title":"title1",
         "type":"type1",
         "asker":"logan von",
         "date":"2012-10-10",
@@ -68,6 +69,7 @@
                 "intro":"foto"
             }
         ],
+        "title":"title2",
         "type":"type1",
         "asker":"logan von",
         "date":"2012-10-10",
@@ -95,6 +97,7 @@
                 "intro":"foto"
             }
         ],
+        "title":"title3",
         "type":"type1",
         "asker":"logan von",
         "date":"2012-10-10",

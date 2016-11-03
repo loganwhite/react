@@ -170,16 +170,8 @@ table > tbody > tr > td {
 	background-color: #f1f1f1;
 }
 
-.picture-view a[class="prev disabled"] {
-	background: url(product.gif) -150px -510px no-repeat #f4f4f4;
-}
-
-.picture-view a[class="next disabled"] {
-	background: url(product.gif) -210px -510px no-repeat #f4f4f4;
-}
-
 .picture-view .scrollable {
-	width: 90%;
+	width: 100%;
 	height: 64px;
 	float: left;
 	position: relative;
