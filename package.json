@@ -32,6 +32,7 @@
     "less-loader": "^2.2.3",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-dropzone": "^3.7.2",
     "remarkable": "^1.7.1",
     "url-loader": "^0.5.7"
   }

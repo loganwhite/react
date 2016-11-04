@@ -79,7 +79,7 @@ a.btn, a.btn:link, a.btn:visited, a.btn:hover, a.btn:active, button.btn {
 	font-size: 15px;
 	border: 1px solid black;
 	border-radius: 5px;
-	cursor: hand ;
+	cursor: pointer ;
 	margin-right: 5px;
 	color: black;
 }
@@ -202,4 +202,15 @@ table > tbody > tr > td {
 	width: 60px;
 	height: 60px;
 	display: block;
+}
+
+.dropbox {
+	float:left;
+	display:inline-block;
+	width:150px;
+	min-height:150px;
+	border: 2px dotted #000;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 20px;
 }

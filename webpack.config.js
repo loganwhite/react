@@ -7,6 +7,12 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body',
 });
 
+const ProductionMode = new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify('production')
+    }
+  });
+
 const Compress = new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -42,5 +48,5 @@ module.exports = {
     port: 8008
   },
   // plugins 放置所使用的外掛
-  plugins: [HTMLWebpackPluginConfig,Compress]
+  plugins: [HTMLWebpackPluginConfig,Compress,ProductionMode]
 };

@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Dropzone from 'react-dropzone'
+
 //import $ from 'jquery'
 
 var g_btns = [
@@ -19,6 +21,7 @@ class ConsultDetail extends React.Component {
 				<Header user="aaa" column="bbb" function="ccc" />
 				<ToolBar btn={g_btns}  />
 				<Content consultId={this.props.consultId} consultUrl={this.props.consultUrl} />
+				<Reply rootId={this.props.consultId} />
 			</div>
 		);
 	}
@@ -78,6 +81,7 @@ class Content extends React.Component {
 		$.ajax({
 			url:this.props.consultUrl,
 			method:'get',
+			dataType:'json',
 			data:{'id':this.props.consultId},
 			success:function(resData) {
 				
@@ -136,7 +140,7 @@ class ContentItem extends React.Component {
 						question={this.props.question} />
 					</div>
 					<div>
-						<Reply reply={this.props.reply} id={this.props.id} />
+						{this.props.reply || ""}
 					</div>
 				</div>
 			</div>
@@ -225,15 +229,18 @@ class Details extends React.Component {
 	}
 }
 
+
 class Reply extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {editor: null,reply:this.props.reply};
+		this.state = {editor: null,files:null};
+		this.disableClick = false;
+		this.multiple = true;
 	}
 
 	componentDidMount() {
 		var editor = KindEditor.create(this.refs.editor, {
-				allowFileManager : true
+				allowFileManager : false
 			});
 		this.setState({editor:editor});
 	}
@@ -244,37 +251,82 @@ class Reply extends React.Component {
 		$.ajax({
 			url:'submitReply',
 			method:'post',
-			data:{'id':this.props.id,'expertadvice':advice},
+			dataType:'json',
+			data:{'id':this.props.rootId,'expertadvice':advice},
 			success:function(resData) {
 				let state = this.state;
 				if (resData.success) {
 					state.reply = advice;
 					this.setState(state);
 				} else
-					alert("回复出现错误!");
+					alert("追问出现错误!");
 			}.bind(this),
 			error:function(xhr, status, err) {
-		        alert("回复出现错误!");
+		        alert("追问出现错误!");
 		        console.error(this.props.url, status, err.toString());
 		     }.bind(this)
 		});
 	}
 
+	onDrop(files) {
+		this.setState({files:files});
+      console.log('Received files: ', files);
+    }
+
+    handleChange(e) {
+    	e.preventDefault();
+
+    }
+
+    textHandleClick(e) {
+    	e.preventDefault();
+    }
+
 	render() {
-		if (!(this.state.reply == '' || this.state.reply == undefined || this.state.reply == null))
-			return (
-				<div className="text-reply">
-					{this.props.reply}
-				</div>
-			);
+		let file_item = null;
+		if (this.state.files != null) {
+
+		file_item = this.state.files.map(file => (
+			<tr key={file.name}>
+				<td><input type="text" value="title" onClick={this.textHandleClick.bind(this)} onChange={this.handleChange.bind(this)} /></td>
+				<td>{file.name}</td>
+				<td><input type="text" value="order" onClick={this.textHandleClick.bind(this)} onChange={this.handleChange.bind(this)} /></td>
+			</tr>
+		));
+		console.log(file_item);
+	}
+
 		return (
 			<div className="reply-box">
+				
+				<div className="container">
+				<Dropzone onDrop={this.onDrop.bind(this)} className="dropbox">
+					<div>将文件拖放与此或点击此区域...</div>
+				</Dropzone>
+				<table>
+						<thead>
+							<tr>
+								<th>标题</th>
+								<th>文件</th>
+								<th>排序</th>
+							</tr>
+						</thead>
+						<tbody>
+							{file_item}
+						</tbody>
+				</table>
+				</div>
+
+				<div className="reply-box-right">
 				<textarea ref="editor" className="editor"></textarea>
-				<button className="btn submit-btn" onClick={this.handleClick.bind(this)}>回复</button>
+				<button className="btn submit-btn" onClick={this.handleClick.bind(this)}>追问</button>
+				</div>
 			</div>
 		);
 	}
 }
+
+
 
 var id = $("#consult-id").val();
 
