@@ -248,11 +248,20 @@ class Reply extends React.Component {
 	handleClick(e) {
 		e.preventDefault();
 		let advice = this.state.editor.html();
+		let formData = new FormData($(this.refs.replyForm)[0]);
+		formData.append("describle",advice);
+		formData.append("zwID",this.props.rootId);
+		this.state.files.forEach(function(v,i) {
+			formData.append('TConsultPic['+i+'].pic',v);
+		});
+		console.log(formData);
 		$.ajax({
 			url:'submitReply',
 			method:'post',
 			dataType:'json',
-			data:{'id':this.props.rootId,'expertadvice':advice},
+			data:formData,
+			contentType: false,  
+			processData: false,
 			success:function(resData) {
 				let state = this.state;
 				if (resData.success) {
@@ -270,35 +279,24 @@ class Reply extends React.Component {
 
 	onDrop(files) {
 		this.setState({files:files});
-      console.log('Received files: ', files);
-    }
-
-    handleChange(e) {
-    	e.preventDefault();
-
-    }
-
-    textHandleClick(e) {
-    	e.preventDefault();
     }
 
 	render() {
 		let file_item = null;
 		if (this.state.files != null) {
-
+		let i = -1;
 		file_item = this.state.files.map(file => (
-			<tr key={file.name}>
-				<td><input type="text" value="title" onClick={this.textHandleClick.bind(this)} onChange={this.handleChange.bind(this)} /></td>
+			<tr key={i++}>
+				<td><input type="text" name={'TConsultPic['+i+'].title'} /></td>
 				<td>{file.name}</td>
-				<td><input type="text" value="order" onClick={this.textHandleClick.bind(this)} onChange={this.handleChange.bind(this)} /></td>
+				<td><input type="text" name={'TConsultPic['+i+'].order'} /></td>
 			</tr>
 		));
-		console.log(file_item);
 	}
 
 		return (
 			<div className="reply-box">
-				
+				<form ref='replyForm'>
 				<div className="container">
 				<Dropzone onDrop={this.onDrop.bind(this)} className="dropbox">
 					<div>将文件拖放与此或点击此区域...</div>
@@ -321,6 +319,7 @@ class Reply extends React.Component {
 				<textarea ref="editor" className="editor"></textarea>
 				<button className="btn submit-btn" onClick={this.handleClick.bind(this)}>追问</button>
 				</div>
+				</form>
 			</div>
 		);
 	}

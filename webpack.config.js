@@ -48,5 +48,5 @@ module.exports = {
     port: 8008
   },
   // plugins 放置所使用的外掛
-  plugins: [HTMLWebpackPluginConfig,Compress,ProductionMode]
+  plugins: [HTMLWebpackPluginConfig,Compress]
 };
