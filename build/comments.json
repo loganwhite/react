@@ -3,18 +3,107 @@
         "id":1,
         "username":"logan",
         "userpage":"www.baidu.com",
+        "photos":
+        [
+            {
+                "image":"http://images.forwallpaper.com/files/thumbs/preview/22/225777__tz-wallpaper_p.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png",
+                "intro":"foto"
+            },
+            {
+                "image":"https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                "intro":"foto"
+            },
+            {
+                "image":"http://mat1.gtimg.com/www/images/qq2012/qqlogo_2x.png",
+                "intro":"foto"
+            },
+            {
+                "image":"http://mat1.gtimg.com/www/images/qq2012/qqlogo_1x.png",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/ninja/2/2016/11/ninja147798710328515.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/news/pics/hv1/26/119/2149/139769096.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/ninja/2/2016/11/ninja147795896071162.jpg",
+                "intro":"foto"
+            },
+            {
+                "image":"http://img1.gtimg.com/18/1801/180182/18018227_small.png",
+                "intro":"foto"
+            }
+        ],
+        "title":"title1",
+        "type":"type1",
+        "asker":"logan von",
+        "date":"2012-10-10",
+        "question":"ques",
+        "reply":null,
         "content":"this is a text of content"
     },
     {
         "id":2,
         "username":"logan",
         "userpage":"www.baidu.com",
+        "photos":
+        [
+            {
+                "image":"http://simg.sinajs.cn/blog7style/images/common/topbar/topbar_logo.gif",
+                "intro":"foto"
+            },
+            {
+                "image":"https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png",
+                "intro":"foto"
+            },
+            {
+                "image":"https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                "intro":"foto"
+            }
+        ],
+        "title":"title2",
+        "type":"type1",
+        "asker":"logan von",
+        "date":"2012-10-10",
+        "question":"ques",
+        "reply":"this is reply",
         "content":"this is a text of content"
+    
     },
     {
         "id":3,
         "username":"logan",
         "userpage":"www.baidu.com",
+        "photos":
+        [
+            {
+                "image":"http://simg.sinajs.cn/blog7style/images/common/topbar/topbar_logo.gif",
+                "intro":"foto"
+            },
+            {
+                "image":"https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png",
+                "intro":"foto"
+            },
+            {
+                "image":"https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                "intro":"foto"
+            }
+        ],
+        "title":"title3",
+        "type":"type1",
+        "asker":"logan von",
+        "date":"2012-10-10",
+        "question":"ques",
+        "reply":null,
         "content":"this is a text of content"
     }
+    
 ]

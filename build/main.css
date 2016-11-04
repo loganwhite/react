@@ -1,6 +1,7 @@
 *{
 	margin: 0;
 	padding: 0;
+	font-family: "Microsoft YaHei";
 }
 
 .header {
@@ -72,13 +73,144 @@
 	width: 90%;
 }
 
-a.btn, a.btn:link, a.btn:visited, a.btn:hover, a.btn:active {
+a.btn, a.btn:link, a.btn:visited, a.btn:hover, a.btn:active, button.btn {
 	text-decoration:none;
 	padding: 5px 1em;
 	font-size: 15px;
 	border: 1px solid black;
 	border-radius: 5px;
-	cursor: hand ;
+	cursor: pointer ;
 	margin-right: 5px;
 	color: black;
+}
+
+table > tbody > tr > td {
+	border: none;
+	padding: 0.5em 1em;
+}
+
+.question {
+	width:100%;
+}
+
+.text-reply {
+	width:100%;
+}
+
+.editor {
+	width: 90%;
+	min-height: 10em;
+}
+
+.question-detail {
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+
+.question-detail:after {
+	content:"";
+	display:table;
+	clear: both;
+}
+
+.picture-view {
+	float:left;
+	width: 40%;
+}
+
+.details {
+	float:right;
+	width:50%;
+}
+
+.submit-btn {
+	height:30px;
+	margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+    float:right;
+    bottom:30px;
+}
+
+.picture-view .prev {
+	width: 10px;
+	height: 62px;
+	display: block;
+	float: left;
+	margin-right: 5px;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: 1px solid #e4e4e4;
+	background: url(/product.gif) -120px -510px no-repeat;
+}
+
+.picture-view .prev:hover {
+	background-color: #f1f1f1;
+}
+
+.picture-view .next {
+	width: 10px;
+	height: 62px;
+	display: block;
+	float: right;
+	margin-left: 4px;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: 1px solid #e4e4e4;
+	background: url(/product.gif) -180px -510px no-repeat;
+}
+
+.picture-view .next:hover {
+	background-color: #f1f1f1;
+}
+
+.picture-view .disabled {
+	cursor: default;
+	background-color: #f1f1f1;
+}
+
+.picture-view .scrollable {
+	width: 100%;
+	height: 64px;
+	float: left;
+	position: relative;
+    overflow: hidden;
+}
+
+.picture-view .scrollable .items {
+	width: 20000em;
+	position: absolute;
+}
+
+.picture-view .scrollable a {
+	display: block;
+	float: left;
+	padding: 1px;
+	margin-right: 4px;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: 1px solid #e4e4e4;
+}
+
+.picture-view .scrollable a.current {
+	padding: 0px;
+	border: 2px solid ##e4e4e4;
+}
+
+.picture-view .scrollable img {
+	width: 60px;
+	height: 60px;
+	display: block;
+}
+
+.dropbox {
+	float:left;
+	display:inline-block;
+	width:150px;
+	min-height:150px;
+	border: 2px dotted #000;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 20px;
 }
