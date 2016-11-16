@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Dropzone from 'react-dropzone'
+
 //import $ from 'jquery'
 
 var g_btns = [
-    {id:1,text:"返回",link:"javascript:;"}
+    {id:1,text:"新咨询",link:"addConsultEntrance"}
     //,{id:2,text:"只看此用户",link:"http://www.baidu.com"}
 ];
 
@@ -16,9 +18,10 @@ class ConsultDetail extends React.Component {
 
 		return (
 			<div className="container">
-				<Header user="专家" column="咨询" function="回复咨询" />
+				<Header user="用户" column="咨询" function="详情" />
 				<ToolBar btn={g_btns}  />
 				<Content consultId={this.props.consultId} consultUrl={this.props.consultUrl} />
+				<Reply rootId={this.props.consultId} />
 			</div>
 		);
 	}
@@ -60,14 +63,9 @@ class Button extends React.Component {
 		super(props);
 	}
 
-	handleClick(e) {
-		e.preventDefault();
-		window.history.back();
-	}
-
 	render() {
 		return (
-			<a className="btn" href={this.props.link} onClick={this.handleClick.bind(this)} >{this.props.text}</a>
+			<a className="btn" href={this.props.link} >{this.props.text}</a>
 		);
 	}
 }
@@ -86,7 +84,6 @@ class Content extends React.Component {
 			dataType:'json',
 			data:{'id':this.props.consultId},
 			success:function(resData) {
-				
 				this.setState({data:resData.obj});
 			}.bind(this),
 			error: function(xhr, status, err) {
@@ -142,7 +139,7 @@ class ContentItem extends React.Component {
 						question={this.props.question} />
 					</div>
 					<div>
-						<Reply reply={this.props.reply} id={this.props.id} />
+						{this.props.reply || ""}
 					</div>
 				</div>
 			</div>
@@ -233,104 +230,122 @@ class Details extends React.Component {
 					</table>
 				</div>
 				<div className="question">
-					<span dangerouslySetInnerHTML={this.rawMarkup()} />
+				<span dangerouslySetInnerHTML={this.rawMarkup()} />
 				</div>
 			</div>
 		);
 	}
 }
 
+
 class Reply extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {editor: null,reply:this.props.reply};
+		this.state = {editor: null,files:null};
+		this.disableClick = false;
+		this.multiple = true;
 	}
 
 	componentDidMount() {
 		var editor = KindEditor.create(this.refs.editor, {
+				allowFileManager : false,
 				items: [
 					"source", "|", "undo", "redo", "|", "preview", "print", "template", "cut", "copy", "paste",
 					"plainpaste", "wordpaste", "|", "justifyleft", "justifycenter", "justifyright",
 					"justifyfull", "insertorderedlist", "insertunorderedlist", "indent", "outdent", "subscript",
 					"superscript", "clearhtml", "quickformat", "selectall", "|", "fullscreen", "/",
 					"formatblock", "fontname", "fontsize", "|", "forecolor", "hilitecolor", "bold",
-					"italic", "underline", "strikethrough", "lineheight", "removeformat", "|", "image",
-					"flash", "media", "insertfile", "table", "hr", "emoticons", "baidumap", "pagebreak",
+					"italic", "underline", "strikethrough", "lineheight", "removeformat", "|", "table", "hr", "emoticons", "baidumap", "pagebreak",
 					"anchor", "link", "unlink"
-				],
-				langType: "zh_CN",
-				syncType: "form",
-				filterMode: false,
-				pagebreakHtml: '<hr class="pageBreak" \/>',
-				allowFileManager: true,
-				filePostName: "file",
-				fileManagerJson: "/grainInsects/admin/file/browser",
-				uploadJson: "/grainInsects/admin/file/upload",
-				uploadImageExtension: "jpg,jpeg,bmp,gif,png",
-				uploadFlashExtension: "swf,flv",
-				uploadMediaExtension: "swf,flv,mp3,wav,avi,rm,rmvb",
-				uploadFileExtension: "zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx",
-				extraFileUploadParams: {
-					token: getCookie("token")
-				},
-				afterChange: function() {
-					this.sync();
-				}
+				]
 			});
 		this.setState({editor:editor});
-	}
-
-	rawMarkup() {
-		return { __html: this.state.reply };
 	}
 
 	handleClick(e) {
 		e.preventDefault();
 		let advice = this.state.editor.html();
+		let formData = new FormData($(this.refs.replyForm)[0]);
+		formData.append("describle",advice);
+		formData.append("zwId",this.props.rootId);
+		this.state.files.forEach(function(v,i) {
+			formData.append('TConsultationPics['+i+'].file',v);
+		});
+		console.log(formData);
 		$.ajax({
-			url:'replyConsult',
+			url:'pursueConsult',
 			method:'post',
-			data:{'id':this.props.id,'expertadvice':advice},
+			dataType:'json',
+			data:formData,
+			contentType: false,  
+			processData: false,
 			success:function(resData) {
-				let state = this.state;
+				//let state = this.state;
 				if (resData.success) {
-					state.reply = advice;
-					state.editor.remove();
-					this.setState(state);
+					//state.reply = advice;
+					//this.setState(state);
+					alert("追问成功！");
+					location.reload();
 				} else
-					alert("回复出现错误!");
+					alert("追问出现错误!");
 			}.bind(this),
 			error:function(xhr, status, err) {
-		        alert("回复出现错误!");
+		        alert("追问出现错误!");
 		        console.error(this.props.url, status, err.toString());
 		     }.bind(this)
 		});
 	}
 
+	onDrop(files) {
+		this.setState({files:files});
+    }
+
 	render() {
-		if (!(this.state.reply == '' || this.state.reply == undefined || this.state.reply == null))
-			return (
-				<div className="text-reply">
-					<span dangerouslySetInnerHTML={this.rawMarkup()} />
-				</div>
-			);
+		let file_item = null;
+		if (this.state.files != null) {
+		let i = -1;
+		file_item = this.state.files.map(file => (
+			<tr key={i++}>
+				<td><input type="text" name={'TConsultationPics['+i+'].title'} /></td>
+				<td>{file.name}</td>
+				<td><input type="text" name={'TConsultationPics['+i+'].order'} /></td>
+			</tr>
+		));
+	}
+
 		return (
 			<div className="reply-box">
+				<form ref='replyForm'>
+				<div className="container">
+				<Dropzone onDrop={this.onDrop.bind(this)} className="dropbox">
+					<div>将文件拖放与此或点击此区域...</div>
+				</Dropzone>
+				<table>
+						<thead>
+							<tr>
+								<th>标题</th>
+								<th>文件</th>
+								<th>排序</th>
+							</tr>
+						</thead>
+						<tbody>
+							{file_item}
+						</tbody>
+				</table>
+				</div>
+
+				<div className="reply-box-right">
 				<textarea ref="editor" className="editor"></textarea>
-				<button className="btn submit-btn" onClick={this.handleClick.bind(this)}>回复</button>
+				<button className="btn submit-btn" onClick={this.handleClick.bind(this)}>追问</button>
+				</div>
+				</form>
 			</div>
 		);
 	}
 }
 
-var id = $("#consult-id").val();
 
-// 获取Cookie
-function getCookie(name) {
-	if (name != null) {
-		var value = new RegExp("(?:^|; )" + encodeURIComponent(String(name)) + "=([^;]*)").exec(document.cookie);
-		return value ? decodeURIComponent(value[1]) : null;
-	}
-}
+
+var id = $("#consult-id").val();
 
 ReactDOM.render(<ConsultDetail consultId={id} consultUrl="viewConsultation" />, document.getElementById('app'));

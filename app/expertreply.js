@@ -233,7 +233,34 @@ class Reply extends React.Component {
 
 	componentDidMount() {
 		var editor = KindEditor.create(this.refs.editor, {
-				allowFileManager : true
+				items: [
+					"source", "|", "undo", "redo", "|", "preview", "print", "template", "cut", "copy", "paste",
+					"plainpaste", "wordpaste", "|", "justifyleft", "justifycenter", "justifyright",
+					"justifyfull", "insertorderedlist", "insertunorderedlist", "indent", "outdent", "subscript",
+					"superscript", "clearhtml", "quickformat", "selectall", "|", "fullscreen", "/",
+					"formatblock", "fontname", "fontsize", "|", "forecolor", "hilitecolor", "bold",
+					"italic", "underline", "strikethrough", "lineheight", "removeformat", "|", "image",
+					"flash", "media", "insertfile", "table", "hr", "emoticons", "baidumap", "pagebreak",
+					"anchor", "link", "unlink"
+				],
+				langType: "zh_CN",
+				syncType: "form",
+				filterMode: false,
+				pagebreakHtml: '<hr class="pageBreak" \/>',
+				allowFileManager: true,
+				filePostName: "file",
+				fileManagerJson: "/grainInsects/admin/file/browser",
+				uploadJson: "/grainInsects/admin/file/upload",
+				uploadImageExtension: "jpg,jpeg,bmp,gif,png",
+				uploadFlashExtension: "swf,flv",
+				uploadMediaExtension: "swf,flv,mp3,wav,avi,rm,rmvb",
+				uploadFileExtension: "zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx",
+				extraFileUploadParams: {
+					token: getCookie("token")
+				},
+				afterChange: function() {
+					this.sync();
+				}
 			});
 		this.setState({editor:editor});
 	}
@@ -277,5 +304,13 @@ class Reply extends React.Component {
 }
 
 var id = $("#consult-id").val();
+
+// 获取Cookie
+function getCookie(name) {
+	if (name != null) {
+		var value = new RegExp("(?:^|; )" + encodeURIComponent(String(name)) + "=([^;]*)").exec(document.cookie);
+		return value ? decodeURIComponent(value[1]) : null;
+	}
+}
 
 ReactDOM.render(<ConsultDetail consultId={id} consultUrl="/comments.json" />, document.getElementById('app'));
