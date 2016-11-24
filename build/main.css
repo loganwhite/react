@@ -89,6 +89,12 @@ table > tbody > tr > td {
 	padding: 0.5em 1em;
 }
 
+
+table > thead > tr > th {
+	border: none;
+	padding: 0.5em 1em;
+	min-width: 5em;
+}
 .question {
 	width:100%;
 }
