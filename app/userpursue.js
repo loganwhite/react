@@ -84,7 +84,7 @@ class Content extends React.Component {
 		this.state = {data:[]};
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 
 		$.ajax({
 			url:this.props.consultUrl,
@@ -150,6 +150,7 @@ class ContentItem extends React.Component {
 						question={this.props.question} />
 					</div>
 					<div>
+						<div>专家回复：</div><br/>
 						<span dangerouslySetInnerHTML={this.rawMarkup()} />
 					</div>
 				</div>
