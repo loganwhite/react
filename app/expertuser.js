@@ -232,7 +232,7 @@ class Details extends React.Component {
 					</table>
 				</div>
 				<div className="question">
-					<div>资讯描述：</div>
+					<div>咨询描述：</div>
 					<span dangerouslySetInnerHTML={this.rawMarkup()} />
 				</div>
 			</div>
@@ -286,6 +286,7 @@ class Reply extends React.Component {
 
 	handleClick(e) {
 		e.preventDefault();
+		if (!confirm("是否确认提交？")) return;
 		let advice = this.state.editor.html();
 		$.ajax({
 			url:'replyConsult',

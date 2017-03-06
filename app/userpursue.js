@@ -46,13 +46,20 @@ class ToolBar extends React.Component {
 		super(props);
 	}
 
+	handleClick(e) {
+		e.preventDefault();
+		location.reload();
+	}
+
 	render() {
 		let btns = this.props.btn.map(button => (
 			<Button text={button.text} link={button.link} key={button.id} />
 		));
+
 		return (
 			<div className="toolbar">
 				{btns}
+				<a onClick={this.handleClick.bind(this)} className="btn" href="javascript:;">刷新</a>
 			</div>
 		);
 	}
@@ -114,6 +121,7 @@ class Content extends React.Component {
 			asker={i.username}
 			date={i.consulttime}
 			question={i.describle}
+			expertName={i.expert.name}
 			reply={i.expertadvice} />
 		));
 
@@ -134,11 +142,52 @@ class ContentItem extends React.Component {
 		return { __html: this.props.reply || "" };
 	}
 
+	handleDelete(e) {
+		e.preventDefault();
+		if (!confirm("是否确认删除？")) return;
+		$.ajax({
+			url:'deleteConsultation',
+			method:'post',
+			data:{'id':this.props.id},
+			dataType:'json',
+			success:function(resData) {
+				alert(resData.msg);
+				location.reload();
+			}.bind(this),
+			error:function(xhr, status, err) {
+		        alert("删除出现错误!");
+		        console.error(this.props.url, status, err.toString());
+		     }.bind(this)
+		});
+	}
+
 	render() {
+		let operation, expert_reply;
+		if (!(this.props.reply == '' || this.props.reply == undefined || this.props.reply == null)) {
+			// if expert has replied
+			operation = null;
+			expert_reply = (
+				<div>
+					<div>专家{this.props.expertName}回复：</div><br/>
+					<span dangerouslySetInnerHTML={this.rawMarkup()} />
+				</div>
+			);
+		} else {
+			expert_reply = null;
+			operation = (
+				<div>
+				<a className="btn" href={"editConsultEntrance?id="+this.props.id} >修改</a><br/>
+				<a className="btn" href="javascript:;" onClick={this.handleDelete.bind(this)} >删除</a>
+				</div>
+			);
+
+		}
+
 		return(
 			<div className="item">
 				<div className="user-info">
-					<div>{this.props.user}</div>
+					<div>{this.props.user}</div><br/>
+					{operation}
 				</div>
 				<div className="content">
 					<div className="question-detail">
@@ -149,10 +198,7 @@ class ContentItem extends React.Component {
 						date={this.props.date}
 						question={this.props.question} />
 					</div>
-					<div>
-						<div>专家回复：</div><br/>
-						<span dangerouslySetInnerHTML={this.rawMarkup()} />
-					</div>
+					{expert_reply}
 				</div>
 			</div>
 		);
@@ -277,14 +323,15 @@ class Reply extends React.Component {
 
 	handleClick(e) {
 		e.preventDefault();
+		if (!confirm("是否确认提交？")) return;
 		let advice = this.state.editor.html();
 		let formData = new FormData($(this.refs.replyForm)[0]);
 		formData.append("describle",advice);
 		formData.append("zwId",this.props.rootId);
-		this.state.files.forEach(function(v,i) {
-			formData.append('TConsultationPics['+i+'].file',v);
-		});
-		console.log(formData);
+		if (this.state.files != null)
+			this.state.files.forEach(function(v,i) {
+				formData.append('TConsultationPics['+i+'].file',v);
+			});
 		$.ajax({
 			url:'pursueConsult',
 			method:'post',
