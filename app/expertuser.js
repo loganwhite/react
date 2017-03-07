@@ -43,6 +43,11 @@ class ToolBar extends React.Component {
 		super(props);
 	}
 
+	handleClick(e) {
+		e.preventDefault();
+		location.reload();
+	}
+
 	render() {
 		let btns = this.props.btn.map(button => (
 			<Button text={button.text} link={button.link} key={button.id} />
@@ -50,6 +55,7 @@ class ToolBar extends React.Component {
 		return (
 			<div className="toolbar">
 				{btns}
+				<a onClick={this.handleClick.bind(this)} className="btn" href="javascript:;">刷新</a>
 			</div>
 		);
 	}
@@ -109,6 +115,7 @@ class Content extends React.Component {
 			asker={i.username}
 			date={i.consulttime}
 			question={i.describle}
+			expertName={i.expert.name}
 			reply={i.expertadvice} />
 		));
 
@@ -141,7 +148,7 @@ class ContentItem extends React.Component {
 						question={this.props.question} />
 					</div>
 					<div>
-						<Reply reply={this.props.reply} id={this.props.id} />
+						<Reply reply={this.props.reply} replyExpert={this.props.expertName} id={this.props.id} />
 					</div>
 				</div>
 			</div>
@@ -312,7 +319,7 @@ class Reply extends React.Component {
 		if (!(this.state.reply == '' || this.state.reply == undefined || this.state.reply == null))
 			return (
 				<div className="text-reply">
-				<div>专家回复：</div><br/>
+				<div>专家{this.props.replyExpert}回复：</div><br/>
 					<span dangerouslySetInnerHTML={this.rawMarkup()} />
 				</div>
 			);
